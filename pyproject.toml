@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "fireguard"
+version = "0.1.0"
+description = ""
+authors = ["h587916 <haakon.mydland@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+requests = "^2.31.0"
+
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.0.0"
+ruff = "^0.1.15"
+pytest-cov = "^4.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
