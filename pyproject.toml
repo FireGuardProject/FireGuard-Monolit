@@ -2,7 +2,7 @@
 name = "fireguard"
 version = "0.1.0"
 description = ""
-authors = ["h587916 <haakon.mydland@gmail.com>"]
+authors = ["Håkon, Viktor, Andreas and Maksim"]
 readme = "README.md"
 packages = [{include = "FRC_service", from = "src"},{include = "API", from = "src"},
 {include = "logic", from = "src"},{include = "data_harvesting", from = "src"}]
