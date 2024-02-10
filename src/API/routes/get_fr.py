@@ -8,8 +8,8 @@ router = APIRouter()
 class ErrorResponse(BaseModel):
     detail: str
 
-def calculate_fr_request_dummy():
-    print("firerisk")
+def calculate_fr_request_dummy(start_date, end_date, longitude, latitude):
+    return start_date, end_date, longitude, latitude
 
 @router.get("/calculate/firerisk/", responses={
     404: {"model": ErrorResponse, "description": "no jobs"},
@@ -22,8 +22,9 @@ async def get_firerisk(start_date: Optional[str] = Query(None, description="This
     #define date_span
     # longitude
     # latitude
-    calculate_fr_request_dummy
-    return start_date, end_date, longitude, latitude
+    # Using DD - Decimal degrees
+
+    return calculate_fr_request_dummy(start_date, end_date, longitude, latitude)
 
 
 #URL EXAMPLE: http://127.0.0.1:8000/api/v1/calculate/firerisk/?start_date=hei&end_date=Okei&longitude=8.2&latitude=9.2
