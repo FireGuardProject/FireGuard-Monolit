@@ -1,4 +1,4 @@
-import utils.model as model
+import datamodel.model as model
 import FRC_service.preprocess as pp
 
 def calculate(weatherdata: model.WeatherData) -> model.FireRiskPrediction:
@@ -10,7 +10,7 @@ def calculate(weatherdata: model.WeatherData) -> model.FireRiskPrediction:
 
         # Step 2: Use the model to make a prediction
         comp_loc = weatherdata.forecast.location
-        firerisks = [0.1, 0.2, 0.3, 0.4, 0.5]
+        firerisks = [0.1, 0.2, 0.3, 0.4, 0.5]   # Placeholder values
         FireRiskResponse = model.FireRiskPrediction(location=comp_loc, firerisks=firerisks)
 
         # Return the fire risk prediction
