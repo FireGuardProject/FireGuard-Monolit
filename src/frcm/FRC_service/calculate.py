@@ -1,5 +1,5 @@
-import datamodel.model as model
-import FRC_service.preprocess as pp
+import frcm.datamodel.model as model
+import frcm.FRC_service.preprocess as pp
 
 def calculate(weatherdata: model.WeatherData) -> model.FireRiskPrediction:
         """
@@ -15,3 +15,4 @@ def calculate(weatherdata: model.WeatherData) -> model.FireRiskPrediction:
 
         # Return the fire risk prediction
         return FireRiskResponse
+
