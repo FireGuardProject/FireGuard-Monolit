@@ -4,11 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["Håkon, Viktor, Andreas and Maksim"]
 readme = "README.md"
-packages = [
-    {include = "FRC_service", from = "src"},{include = "API", from = "src"},
-    {include = "logic", from = "src"},{include = "data_harvesting", from = "src"},
-    {include = "datamodel", from = "src"}
-]
+packages = [{include = "frcm", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.12"
