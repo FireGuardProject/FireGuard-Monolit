@@ -1,4 +1,4 @@
-import utils.model as model
+import datamodel.model as model
 
 def preprocess(weatherdata: model.WeatherData):
         """
