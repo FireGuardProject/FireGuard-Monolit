@@ -4,7 +4,7 @@ import dateutil
 
 import testdata.test_testdata_fireriskmodel as test_testdata
 
-import frcm.datamodel.utils as utils
+import src.frcm.datamodel.utils as utils
 
 
 class TestUtil(unittest.TestCase):

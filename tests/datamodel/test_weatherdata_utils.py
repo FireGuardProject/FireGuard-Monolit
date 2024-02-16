@@ -11,11 +11,11 @@ import sampledata.met_sample_weatherdata
 #parent = os.path.dirname(current)
 #sys.path.append(parent)
 
-import frcm.datamodel.model as dm
-import frcm.fireriskmodel.preprocess as pp
-from frcm.fireriskmodel.parameters import delta_t
+import src.frcm.datamodel.model as dm
+import src.frcm.FRC_service.preprocess as pp
+from src.frcm.FRC_service.parameters import delta_t
 
-import frcm.weatherdata.utils as utils
+import src.frcm.data_harvesting.utils as utils
 
 
 class TestUtil(unittest.TestCase):

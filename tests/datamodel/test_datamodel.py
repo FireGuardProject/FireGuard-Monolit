@@ -8,11 +8,12 @@ import datetime
 import os
 import sys
 
-import frcm.datamodel.model as dm
+
+import src.frcm.datamodel.model as dm
 
 import testdata.test_testdata_datamodel as test_testdata
 
-import frcm.datamodel.utils as utils
+import src.frcm.datamodel.utils as utils
 
 
 class TestDataModel(unittest.TestCase):

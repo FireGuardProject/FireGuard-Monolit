@@ -4,7 +4,7 @@ import sys
 import unittest
 import json
 
-from frcm.weatherdata.extractor_met import METExtractor
+from src.frcm.data_harvesting.extractor_met import METExtractor
 
 import sampledata.met_sample_forecast
 import sampledata.frost_sample_observation
@@ -13,7 +13,7 @@ import sampledata.frost_sample_observation
 #parent = os.path.dirname(current)
 #sys.path.append(parent)
 
-from frcm.datamodel.model import Location
+from src.frcm.datamodel.model import Location
 
 
 class TestUtil(unittest.TestCase):
