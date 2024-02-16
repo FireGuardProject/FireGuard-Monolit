@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Query, Path, HTTPException
 from pydantic import BaseModel, validator
 from typing import Optional  # Import Optional
+from logikk import endelig_funksjon
 import datetime
 
 router = APIRouter()
@@ -13,6 +14,7 @@ def calculate_fr_request(start_date, end_date, longitude, latitude):
     # Her skal en direkte kall direkte til en calculate metode i logic.
     #
     #
+    return endelig_funksjon(start_date, end_date, longitude, latitude)
 
     return start_date, end_date, longitude, latitude
 
