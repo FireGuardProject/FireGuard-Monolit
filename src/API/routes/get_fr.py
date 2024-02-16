@@ -9,6 +9,11 @@ class ErrorResponse(BaseModel):
     detail: str
 
 def calculate_fr_request_dummy(start_date, end_date, longitude, latitude):
+    # A call to logic will be made here with date_span and cordinates.
+    # logic.method(date_span, kordinates)
+
+    # Mottar en firerisk klasse objekt. 
+
     return start_date, end_date, longitude, latitude
 
 @router.get("/calculate/firerisk/", responses={
@@ -19,6 +24,7 @@ async def get_firerisk(start_date: Optional[str] = Query(None, description="This
                        end_date: Optional[str] = Query(None, description="This paramter is the date to search to"),
                        longitude: Optional[float] = Query(None, description="This paramter is the date to search from"),
                        latitude: Optional[float] = Query(None, description="This paramter is the date to search from")):
+    
     #define date_span
     # longitude
     # latitude
