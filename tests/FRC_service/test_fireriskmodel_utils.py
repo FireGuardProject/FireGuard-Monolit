@@ -4,8 +4,8 @@ import datetime
 import os
 import sys
 
-import tests.sampledata.frost_sample_weatherdata as sampledata
-import tests.sampledata.met_sample_weatherdata as sampledata
+import tests.sampledata.frost_sample_weatherdata as sampledata_frost
+import tests.sampledata.met_sample_weatherdata as sampledata_met
 
 #current = os.path.dirname(os.path.realpath(__file__))
 #parent = os.path.dirname(current)
@@ -22,10 +22,10 @@ class TestUtil(unittest.TestCase):
 
     def setUp(self):
         self.observations_wdps = \
-            utils.weatherdata_parse(sampledata.frost_sample_weatherdata.frost_sample_weatherdata['data'])
+            utils.weatherdata_parse(sampledata_frost.frost_sample_weatherdata['data'])
 
         self.forecast_wdps = \
-            utils.weatherdata_parse(sampledata.met_sample_weatherdata.met_sample_weatherdata['data'])
+            utils.weatherdata_parse(sampledata_met.met_sample_weatherdata['data'])
 
         self.location = dm.Location(latitude=60.383, longitude=5.3327)
 

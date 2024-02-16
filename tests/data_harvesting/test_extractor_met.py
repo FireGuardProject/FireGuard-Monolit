@@ -6,7 +6,8 @@ import json
 
 from frcm.data_harvesting.extractor_met import METExtractor
 
-import tests.sampledata as sampledata
+import tests.sampledata.met_sample_forecast as sampledata_met
+import tests.sampledata.frost_sample_observation as sampledata_frost
 
 #current = os.path.dirname(os.path.realpath(__file__))
 #parent = os.path.dirname(current)
@@ -24,8 +25,8 @@ class TestUtil(unittest.TestCase):
 
         self.met_extractor = METExtractor()
 
-        self.met_sample_forecast_str = json.dumps(sampledata.met_sample_forecast.met_sample_forecast)
-        self.frost_sample_observation_str = json.dumps(sampledata.frost_sample_observation.frost_sample_observation)
+        self.met_sample_forecast_str = json.dumps(sampledata_met.met_sample_forecast)
+        self.frost_sample_observation_str = json.dumps(sampledata_frost.frost_sample_observation)
 
     def test_extractor_obs(self):
 
