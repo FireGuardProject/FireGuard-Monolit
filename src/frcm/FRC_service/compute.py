@@ -2,9 +2,9 @@ import numpy as np
 import datetime
 
 import frcm.datamodel.model as dm
-import frcm.fireriskmodel.parameters as mp
-import frcm.fireriskmodel.utils as func
-import frcm.fireriskmodel.preprocess as pp
+import frcm.FRC_service.parameters as mp
+import frcm.FRC_service.utils as func
+import frcm.FRC_service.preprocess as pp
 
 
 def compute(wd: dm.WeatherData) -> dm.FireRiskPrediction:
