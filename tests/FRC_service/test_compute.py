@@ -4,17 +4,16 @@ import sys
 import unittest
 import datetime
 
-import src.frcm.FRC_service.compute as compute
-import testdata.test_testdata_fireriskmodel as test_testdata
-import src.frcm.FRC_service.preprocess
+import frcm.FRC_service.compute as compute
+import tests.testdata.test_testdata_fireriskmodel as test_testdata
 
 #current = os.path.dirname(os.path.realpath(__file__))
 #parent = os.path.dirname(current)
 #sys.path.append(parent)
 
-import src.frcm.datamodel.utils as dmutils
-import src.frcm.datamodel.model as dm
-import src.frcm.data_harvesting.utils as wdutils
+import frcm.datamodel.utils as dmutils
+import frcm.datamodel.model as dm
+import frcm.data_harvesting.utils as wdutils
 
 
 class TestUtil(unittest.TestCase):

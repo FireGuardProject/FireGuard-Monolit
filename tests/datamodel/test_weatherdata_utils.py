@@ -4,18 +4,17 @@ import datetime
 import os
 import sys
 
-import sampledata.frost_sample_weatherdata
-import sampledata.met_sample_weatherdata
+import tests.sampledata as sampledata
 
 #current = os.path.dirname(os.path.realpath(__file__))
 #parent = os.path.dirname(current)
 #sys.path.append(parent)
 
-import src.frcm.datamodel.model as dm
-import src.frcm.FRC_service.preprocess as pp
-from src.frcm.FRC_service.parameters import delta_t
+import frcm.datamodel.model as dm
+import frcm.FRC_service.preprocess as pp
+from frcm.FRC_service.parameters import delta_t
 
-import src.frcm.data_harvesting.utils as utils
+import frcm.data_harvesting.utils as utils
 
 
 class TestUtil(unittest.TestCase):

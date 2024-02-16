@@ -1,8 +1,8 @@
 import datetime
 
-from src.frcm.data_harvesting.extractor_met import METExtractor
-from src.frcm.data_harvesting.client_met import METClient
-from src.frcm.datamodel.model import Location
+from frcm.data_harvesting.extractor_met import METExtractor
+from frcm.data_harvesting.client_met import METClient
+from frcm.datamodel.model import Location
 
 import unittest
 

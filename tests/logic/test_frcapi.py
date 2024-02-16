@@ -1,15 +1,15 @@
 import unittest
 
-import testdata.test_testweatherdata as test_testweatherdata
+import tests.testdata.test_testweatherdata as test_testweatherdata
 
-import src.frcm.datamodel.utils as utils
-from src.frcm.datamodel.model import WeatherData, Observations, Forecast, Location
+import frcm.datamodel.utils as utils
+from frcm.datamodel.model import WeatherData, Observations, Forecast, Location
 
-from src.frcm.frcapi import FireRiskAPI
-from src.frcm.data_harvesting.client_met import METClient
-from src.frcm.data_harvesting.extractor_met import METExtractor
-from src.frcm.datamodel.model import Location
-import src.frcm.FRC_service.preprocess
+from frcm.frcapi import FireRiskAPI
+from frcm.data_harvesting.client_met import METClient
+from frcm.data_harvesting.extractor_met import METExtractor
+from frcm.datamodel.model import Location
+import frcm.FRC_service.preprocess
 
 
 class TestFRCAPI(unittest.TestCase):

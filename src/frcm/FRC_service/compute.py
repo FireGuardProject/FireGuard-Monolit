@@ -3,8 +3,8 @@ import datetime
 
 import frcm.datamodel.model as dm
 import frcm.FRC_service.parameters as mp
-import frcm.FRC_service.parameters as func
-import frcm.FRC_service.parameters as pp
+import frcm.FRC_service.utils as func
+import frcm.FRC_service.preprocess as pp
 
 
 def compute(wd: dm.WeatherData) -> dm.FireRiskPrediction:

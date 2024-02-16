@@ -9,11 +9,11 @@ import os
 import sys
 
 
-import src.frcm.datamodel.model as dm
+import frcm.datamodel.model as dm
 
-import testdata.test_testdata_datamodel as test_testdata
+import tests.testdata.test_testdata_datamodel as test_testdata
 
-import src.frcm.datamodel.utils as utils
+import frcm.datamodel.utils as utils
 
 
 class TestDataModel(unittest.TestCase):
