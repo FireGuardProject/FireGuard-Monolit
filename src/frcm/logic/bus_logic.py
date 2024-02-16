@@ -31,7 +31,6 @@ class FireRiskAPI:
         observations = self.client.fetch_observations(location, start=start_time, end=time_now) # data harvesting
 
 
-
         forecast = self.client.fetch_forecast(location) # data harvesting
 
         wd = WeatherData(created=time_now, observations=observations, forecast=forecast) # data harvesting (FRM) 
@@ -44,7 +43,17 @@ class FireRiskAPI:
         pass
 
     def compute_period(self, location: Location, start: datetime, end: datetime) -> FireRiskPrediction:
-        pass
+        
+        observations = self.client.fetch_observations(location, start=start, end=end) # data harvesting
+
+
+        forecast = self.client.fetch_forecast(location) # data harvesting
+
+        wd = WeatherData(created=end, observations=observations, forecast=forecast) # data harvesting (FRM) 
+
+        prediction = self.compute(wd)  # FRC 
+
+        return prediction 
 
     def compute_period_delta(self, location: Location, start: datetime, delta: datetime.timedelta) -> FireRiskPrediction:
         pass

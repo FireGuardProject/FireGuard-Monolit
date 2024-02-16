@@ -5,7 +5,7 @@ import tests.testdata.test_testweatherdata as test_testweatherdata
 import frcm.datamodel.utils as utils
 from frcm.datamodel.model import WeatherData, Observations, Forecast, Location
 
-from frcm.frcapi import FireRiskAPI
+from frcm.logic.bus_logic import FireRiskAPI
 from frcm.data_harvesting.client_met import METClient
 from frcm.data_harvesting.extractor_met import METExtractor
 from frcm.datamodel.model import Location
