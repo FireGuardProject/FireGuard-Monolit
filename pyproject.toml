@@ -13,6 +13,8 @@ pydantic = "^2.6.1"
 python-dateutil = "^2.8.2"
 numpy = "^1.26.3"
 python-decouple = "^3.8"
+fastapi = "^0.109.2"
+uvicorn = "^0.27.1"
 
 
 [tool.poetry.group.test.dependencies]
