@@ -2,7 +2,6 @@ name: CI Pipeline
 
 on:
   push:
-    
 
 permissions:
   contents: read
@@ -29,7 +28,7 @@ jobs:
       run: |
         poetry install
         poetry install --with test
-        
+
     - name: Test with pytest
       env:
         MET_CLIENT_ID: ${{ secrets.MET_CLIENT_ID }}
