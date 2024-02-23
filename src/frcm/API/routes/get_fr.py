@@ -1,7 +1,11 @@
 from fastapi import APIRouter, Query, Path, HTTPException
 from pydantic import BaseModel, validator
 from typing import Optional  # Import Optional
-import datetime
+from datetime import datetime
+from frcm.logic.bus_logic import FireRiskAPI
+from frcm.datamodel.model import Location
+from frcm.data_harvesting.client_met import METClient
+from frcm.data_harvesting.extractor_met import METExtractor
 
 router = APIRouter()
 
@@ -10,11 +14,20 @@ class ErrorResponse(BaseModel):
     detail: str
 
 def calculate_fr_request(start_date, end_date, longitude, latitude):
-    # Her skal en direkte kall direkte til en calculate metode i logic.
-    #
-    #
+    met_extractor = METExtractor()
 
-    return start_date, end_date, longitude, latitude
+    # TODO: maybe embed extractor into client
+    met_client = METClient(extractor=met_extractor)
+
+    frc = FireRiskAPI(client=met_client)
+    
+    location = Location(longitude=longitude, latitude=latitude)
+    start = datetime.fromisoformat(start_date)
+    end = datetime.fromisoformat(end_date)
+
+    FireRiskPrediction = frc.compute_period(location, start, end)
+    return FireRiskPrediction
+
 
 def check_date(date_first, date_last):
     if date_first >= date_last:
@@ -25,8 +38,8 @@ def check_date(date_first, date_last):
     404: {"model": ErrorResponse, "description": "firerisk no found"},
     400: {"model": ErrorResponse, "description": "invalid input"}
 })
-async def get_firerisk(start_date: Optional[datetime.datetime] = Query(None, description="This paramter is the date to search from"),
-                       end_date: Optional[datetime.datetime] = Query(None, description="This paramter is the date to search to"),
+async def get_firerisk(start_date: Optional[str] = Query(None, description="This paramter is the date to search from"),
+                       end_date: Optional[str] = Query(None, description="This paramter is the date to search to"),
                        longitude: Optional[float] = Query(None, description="This paramter is the date to search from"),
                        latitude: Optional[float] = Query(None, description="This paramter is the date to search from")):
     """
@@ -45,7 +58,7 @@ async def get_firerisk(start_date: Optional[datetime.datetime] = Query(None, des
         http://127.0.0.1:8000/api/v1/calculate/firerisk/?start_date=2024-02-25&end_date=2024-03-25&longitude=60.39299&latitude=5.32415
     """
    
-    check_date(start_date, end_date)
+    # check_date(start_date, end_date)
 
     return calculate_fr_request(start_date, end_date, longitude, latitude)
 
