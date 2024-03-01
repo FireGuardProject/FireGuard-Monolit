@@ -26,21 +26,6 @@ def calculate_fr_period(start_date, end_date, longitude, latitude):
     return FireRiskPrediction
 
 
-def calculate_fr_now_delta(timedelta_days, longitude, latitude):
-    obs_delta = timedelta(days=timedelta_days)
-    location = Location(longitude=longitude, latitude=latitude)
-    FireRiskPrediction = frc.compute_now_delta(location, obs_delta)
-    return FireRiskPrediction
-
-
-def calculate_fr_period_delta(start_date, timedelta_days, longitude, latitude):
-    obs_delta = timedelta(days=timedelta_days)
-    location = Location(longitude=longitude, latitude=latitude)
-    start = datetime.fromisoformat(start_date)
-    FireRiskPrediction = frc.compute_period_delta(location, start, obs_delta)
-    return FireRiskPrediction
-
-
 def check_date(date_first, date_last):
     if date_first >= date_last:
         raise HTTPException(status_code=400, detail="The end date must be after the start date.")
@@ -73,30 +58,6 @@ async def get_firerisk(start_date: Optional[str] = Query(None, description="This
     # check_date(start_date, end_date)
 
     return calculate_fr_period(start_date, end_date, longitude, latitude)
-
-
-@router.get("/calculate/firerisk/timedelta", responses={
-    404: {"model": ErrorResponse, "description": "firerisk no found"},
-    400: {"model": ErrorResponse, "description": "invalid input"}
-})
-async def get_firerisk(timedelta_days: Optional[int] = Query(None, description="This parameter is the time delta"),
-                       longitude: Optional[float] = Query(None, description="This parameter is the date to search from"),
-                       latitude: Optional[float] = Query(None, description="This parameter is the date to search from")):
-
-    return calculate_fr_now_delta(timedelta_days, longitude, latitude)
-
-
-@router.get("/calculate/firerisk/period/delta", responses={
-    404: {"model": ErrorResponse, "description": "firerisk no found"},
-    400: {"model": ErrorResponse, "description": "invalid input"}
-})
-async def get_firerisk(start_date: Optional[str] = Query(None, description="This parameter is the date to search from"),
-                       timedelta_days: Optional[int] = Query(None, description="This parameter is the time delta"),
-                       longitude: Optional[float] = Query(None, description="This parameter is the date to search from"),
-                       latitude: Optional[float] = Query(None, description="This parameter is the date to search from")):
-
-    return calculate_fr_period_delta(start_date, timedelta_days, longitude, latitude)
-
 
 
 # Bergen kordinater: 60.39299 5.32415
