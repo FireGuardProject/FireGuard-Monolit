@@ -5,8 +5,9 @@ FROM python:3.12
 WORKDIR /app
 
 # Copy the project files into the container at /app
-COPY src/ ./src
-COPY pyproject.toml poetry.lock README.md ./
+COPY . .
+#COPY src/ ./src
+#COPY pyproject.toml poetry.lock README.md ./
 
 # Install pipx and Poetry globally
 RUN pip install pipx \
