@@ -1,0 +1,7 @@
+version: '3.8'
+services:
+  webapp:
+    image: haakonm/fireguard-app:latest
+    environment:
+      MET_CLIENT_ID: ${MET_CLIENT_ID}
+      MET_CLIENT_SECRET: ${MET_CLIENT_SECRET}

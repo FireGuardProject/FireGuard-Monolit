@@ -19,8 +19,5 @@ RUN /root/.local/bin/poetry install --no-dev
 # Expose the port the app runs on
 EXPOSE 8000
 
-# Define environment variables if needed
-# ENV VARIABLE_NAME=value
-
 # Command to run on container start, adjust the module path as needed
 CMD ["/root/.local/bin/poetry", "run", "uvicorn", "src.frcm.API.main:app", "--host", "0.0.0.0", "--port", "8000"]

@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  build-docker-deploy:
+  build-docker-image:
     runs-on: ubuntu-latest
 
     steps:
