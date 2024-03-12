@@ -1,0 +1,2 @@
+docker pull haakonm/fireguard-app:latest
+docker run -d --name fireguard-app-instance -p 80:8000 haakonm/fireguard-app:latest

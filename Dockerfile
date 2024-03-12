@@ -19,5 +19,8 @@ RUN /root/.local/bin/poetry install --no-dev
 # Expose the port the app runs on
 EXPOSE 8000
 
+ENV MET_CLIENT_ID='b20b2c9a-d607-4450-ad12-faf4170049bb'
+ENV MET_CLIENT_SECRET='6c2ac37d-3dab-4f39-98e8-1a5dc8eecd75'
+
 # Command to run on container start, adjust the module path as needed
 CMD ["/root/.local/bin/poetry", "run", "uvicorn", "src.frcm.API.main:app", "--host", "0.0.0.0", "--port", "8000"]
