@@ -1,6 +1,6 @@
 import datetime
 
-from CloudComputing.FireGuard.src.frcm.logic.bus_logic import FireRiskAPI
+from frcm.logic.bus_logic import FireRiskAPI
 from frcm.data_harvesting.client_met import METClient
 from frcm.data_harvesting.extractor_met import METExtractor
 from frcm.datamodel.model import Location
