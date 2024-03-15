@@ -26,7 +26,7 @@ def calculate_firerisk(start_date, days, longitude, latitude):
     return FireRiskPrediction
 
 
-@router.get("/fireriskFromStartdate", responses={
+@router.get("/fireriskAfterStartDate", responses={
     404: {"model": ErrorResponse, "description": "firerisk no found"},
     400: {"model": ErrorResponse, "description": "invalid input"}
 })
@@ -41,4 +41,4 @@ async def get_firerisk(start_date: Optional[str] = Query(None, description="This
 
 # Bergen kordinater: 60.39299 5.32415
 
-#URL EXAMPLE: http://127.0.0.1:8000/api/v1/fireriskUpcomingDays/?start_date=2024-03-10&days=3&longitude=60.39299&latitude=5.32415
+#URL EXAMPLE: http://127.0.0.1:8000/api/v1/fireriskAfterStartDate/?start_date=2024-03-10&days=3&longitude=60.39299&latitude=5.32415
