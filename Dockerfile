@@ -14,7 +14,8 @@ RUN pip install pipx \
     && pipx install poetry
 
 # Use Poetry to install the dependencies
-RUN /root/.local/bin/poetry install --no-dev
+RUN /root/.local/bin/poetry install 
+#--no-dev
 
 # Expose the port the app runs on
 EXPOSE 8000
@@ -23,4 +24,5 @@ ENV MET_CLIENT_ID=''
 ENV MET_CLIENT_SECRET=''
 
 # Command to run on container start, adjust the module path as needed
-CMD ["/root/.local/bin/poetry", "run", "uvicorn", "src.frcm.API.main:app", "--host", "0.0.0.0", "--port", "8000"]
+#CMD ["/root/.local/bin/poetry", "run", "uvicorn", "src.frcm.API.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["/root/.local/bin/poetry", "run", "pytest"]
