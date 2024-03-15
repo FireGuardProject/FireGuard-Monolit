@@ -18,27 +18,24 @@ class ErrorResponse(BaseModel):
     detail: str
 
 
-
-
-def calculate_fr_now_delta(timedelta_days, longitude, latitude):
-    obs_delta = timedelta(days=timedelta_days)
+def calculate_firerisk(days, longitude, latitude):
+    delta = timedelta(days=days)
     location = Location(longitude=longitude, latitude=latitude)
-    FireRiskPrediction = frc.compute_now_delta(location, obs_delta)
+    FireRiskPrediction = frc.compute_upcoming_days(location, delta)
     return FireRiskPrediction
 
 
-
-@router.get("/calculate/firerisk/timedelta", responses={
+@router.get("/fireriskUpcomingDays", responses={
     404: {"model": ErrorResponse, "description": "firerisk no found"},
     400: {"model": ErrorResponse, "description": "invalid input"}
 })
-async def get_firerisk(timedelta_days: Optional[int] = Query(None, description="This parameter is the time delta"),
+async def get_firerisk(days: Optional[int] = Query(None, description="This parameter is the time delta"),
                        longitude: Optional[float] = Query(None, description="This parameter is the date to search from"),
                        latitude: Optional[float] = Query(None, description="This parameter is the date to search from")):
 
-    return calculate_fr_now_delta(timedelta_days, longitude, latitude)
+    return calculate_firerisk(days, longitude, latitude)
 
 
 # Bergen kordinater: 60.39299 5.32415
 
-#URL EXAMPLE: http://127.0.0.1:8000/api/v1/calculate/firerisk/?start_date=2024-02-25&end_date=2024-03-25&longitude=60.39299&latitude=5.32415
+#URL EXAMPLE: http://127.0.0.1:8000/api/v1/fireriskUpcomingDays/?days=3&longitude=60.39299&latitude=5.32415

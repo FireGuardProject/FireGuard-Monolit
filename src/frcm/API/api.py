@@ -1,7 +1,9 @@
 from fastapi import APIRouter
-from frcm.API.routes import delta, period, timedelta
+from frcm.API.routes import fr_after_start_date, fr_previous_days, fr_specific_period, fr_upcoming_days, fr_before_end_date
 
 api_router = APIRouter()
-api_router.include_router(period.router, prefix="", tags=["period"])
-api_router.include_router(timedelta.router, prefix="", tags=["timedelta"])
-api_router.include_router(delta.router, prefix="", tags=["delta"])
+api_router.include_router(fr_specific_period.router, prefix="", tags=["fr_specific_period"])
+api_router.include_router(fr_previous_days.router, prefix="", tags=["fr_previous_days"])
+api_router.include_router(fr_after_start_date.router, prefix="", tags=["fr_from_startdate"])
+api_router.include_router(fr_upcoming_days.router, prefix="", tags=["fr_upcoming_days"])
+api_router.include_router(fr_before_end_date.router, prefix="", tags=["fr_before_end_date"])

@@ -17,30 +17,47 @@ class FireRiskAPI:
         return frcm.FRC_service.compute.compute(wd)
     
 
-    def compute_now_delta(self, location: Location, obs_delta: timedelta) -> FireRiskPrediction: 
+    def compute_previous_days(self, location: Location, delta: timedelta) -> FireRiskPrediction: 
         time_now = datetime.now()
-        start_time = time_now - obs_delta
+        start_time = time_now - delta
         observations = self.client.fetch_observations(location, start=start_time, end=time_now)
         forecast = self.client.fetch_forecast(location)
         wd = WeatherData(created=time_now, observations=observations, forecast=forecast)
         prediction = self.compute(wd)
         return prediction 
 
-
-    def compute_period(self, location: Location, start: datetime, end: datetime) -> FireRiskPrediction:
-        observations = self.client.fetch_observations(location, start=start, end=end)
+    def compute_upcoming_days(self, location: Location, delta: timedelta) -> FireRiskPrediction: 
+        time_now = datetime.now()
+        end_time = time_now + delta
+        observations = self.client.fetch_observations(location, start=time_now, end=end_time)
         forecast = self.client.fetch_forecast(location)
-        wd = WeatherData(created=end, observations=observations, forecast=forecast)
-        prediction = self.compute(wd)
-        return prediction 
-
-
-    def compute_period_delta(self, location: Location, start: datetime, delta: timedelta) -> FireRiskPrediction:
-        end = start + delta
-        observations = self.client.fetch_observations(location, start=start, end=end)
-        forecast = self.client.fetch_forecast(location)
-        wd = WeatherData(created=end, observations=observations, forecast=forecast)
+        wd = WeatherData(created=time_now, observations=observations, forecast=forecast)
         prediction = self.compute(wd)
         return prediction
 
+    def compute_specific_period(self, location: Location, start: datetime, end: datetime) -> FireRiskPrediction:
+        time_now = datetime.now()
+        observations = self.client.fetch_observations(location, start=start, end=end)
+        forecast = self.client.fetch_forecast(location)
+        wd = WeatherData(created=time_now, observations=observations, forecast=forecast)
+        prediction = self.compute(wd)
+        return prediction 
+
+    def compute_after_start_date(self, location: Location, start: datetime, delta: timedelta) -> FireRiskPrediction:
+        time_now = datetime.now()
+        end = start + delta
+        observations = self.client.fetch_observations(location, start=start, end=end)
+        forecast = self.client.fetch_forecast(location)
+        wd = WeatherData(created=time_now, observations=observations, forecast=forecast)
+        prediction = self.compute(wd)
+        return prediction
+
+    def compute_before_end_date(self, location: Location, end: datetime, delta: timedelta) -> FireRiskPrediction:
+        time_now = datetime.now()
+        start = end - delta
+        observations = self.client.fetch_observations(location, start=start, end=end)
+        forecast = self.client.fetch_forecast(location)
+        wd = WeatherData(created=time_now, observations=observations, forecast=forecast)
+        prediction = self.compute(wd)
+        return prediction
 
