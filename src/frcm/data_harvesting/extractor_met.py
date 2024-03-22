@@ -1,21 +1,25 @@
 import json
 import dateutil.parser
 import numpy as np
-
+from datetime import datetime, timedelta, timezone
 from frcm.data_harvesting.extractor import Extractor
 from frcm.datamodel.model import *
 
 
 class METExtractor(Extractor):
 
-    def extract_observations(self, frost_response_str: str, location: Location) -> Observations:
-
-        frost_response = json.loads(frost_response_str)
-        data_list = frost_response['data']
-
-        weatherdatapoints = list()
+    def extract_observations(self, frost_response_str: str, location: Location, start_time: datetime.datetime, end_time: datetime.datetime) -> Observations:
 
         source_id = None
+        weatherdatapoints = list()
+        if start_time > datetime.datetime.now():
+            return Observations(source="", location=location,data=weatherdatapoints)
+
+
+        frost_response = json.loads(frost_response_str)
+       
+        data_list = frost_response['data']
+
 
         if len(data_list) > 1:
 
@@ -56,7 +60,7 @@ class METExtractor(Extractor):
 
         return observations
 
-    def extract_forecast(self, met_response_str: str) -> Forecast:
+    def extract_forecast(self, met_response_str: str, start_time: datetime.datetime, end_time: datetime.datetime) -> Forecast:
 
         met_response = json.loads(met_response_str)
 
@@ -74,19 +78,31 @@ class METExtractor(Extractor):
         for forecast in timeseries:
 
             timestamp = dateutil.parser.parse(forecast['time'])
+            string_time = str(timestamp)[:10]
+            action = str(timestamp)[19]
+            tidssone = str(timestamp)[20:22]
+            ny_tid = datetime.datetime(year=int(string_time[:4]), month=int(string_time[5:7]), day=int(string_time[8:10]))
+            if action == '+':
+                ny_tid = ny_tid + timedelta(hours=int(tidssone))
+            if action == '-':
+                ny_tid = ny_tid - timedelta(hours=int(tidssone))
+            #print(ny_tid)
+            if ny_tid > (start_time-timedelta(days=1)):
+                if ny_tid > end_time:
+                    break
 
-            details = forecast['data']['instant']['details']
+                details = forecast['data']['instant']['details']
 
-            temperature = details['air_temperature']
-            humidity = details['relative_humidity']
-            wind_speed = details['wind_speed']
+                temperature = details['air_temperature']
+                humidity = details['relative_humidity']
+                wind_speed = details['wind_speed']
 
-            wd_point = WeatherDataPoint(temperature=temperature,
+                wd_point = WeatherDataPoint(temperature=temperature,
                                         humidity=humidity,
                                         wind_speed=wind_speed,
                                         timestamp=timestamp)
 
-            weatherdatapoints.append(wd_point)
+                weatherdatapoints.append(wd_point)
 
         forecast = Forecast(location=location,data=weatherdatapoints)
 
@@ -97,6 +113,7 @@ class METExtractor(Extractor):
         observations = self.extract_observations(frost_response, location)
 
         forecast = self.extract_forecast(met_response)
+
 
         now = datetime.datetime.now()  # FIXME: date from each response should be used
 

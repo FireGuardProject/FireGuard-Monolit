@@ -38,9 +38,9 @@ class METClient(WeatherDataClient):
         return response
 
 
-    def fetch_forecast(self, location: Location) -> Forecast:
+    def fetch_forecast(self, location: Location, start_time: datetime, end_time: datetime) -> Forecast:
         response = self.fetch_forecast_raw(location)
-        forecast = self.extractor.extract_forecast(response.text)
+        forecast = self.extractor.extract_forecast(response.text, start_time, end_time)
         return forecast
 
 
@@ -93,11 +93,13 @@ class METClient(WeatherDataClient):
                       'elements': 'air_temperature,relative_humidity,wind_speed'
                       }
         response = self.send_frost_request(self.observations_endpoint, parameters)
+ 
         return response
 
 
     def fetch_observations(self, location: Location, start: datetime.datetime, end: datetime.datetime) -> Observations:
+
         station_id = self.get_nearest_station_id(location)
         response = self.fetch_observations_raw(station_id, start, end)
-        observations = self.extractor.extract_observations(response.text, location)
+        observations = self.extractor.extract_observations(response.text, location, start, end)
         return observations
