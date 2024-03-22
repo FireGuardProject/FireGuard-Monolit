@@ -32,13 +32,13 @@ def check_date(date_first, date_last):
 
 
 @router.get("/fireriskSpecificPeriod", responses={
-    404: {"model": ErrorResponse, "description": "firerisk no found"},
+    404: {"model": ErrorResponse, "description": "firerisk not found"},
     400: {"model": ErrorResponse, "description": "invalid input"}
 })
 async def get_firerisk(start_date: Optional[str] = Query(None, description="This parameter is the date to search from"),
                        end_date: Optional[str] = Query(None, description="This parameter is the date to search to"),
-                       longitude: Optional[float] = Query(None, description="This parameter is the date to search from"),
-                       latitude: Optional[float] = Query(None, description="This parameter is the date to search from")):
+                       longitude: Optional[float] = Query(None, description="This parameter is the longitude for the location"),
+                       latitude: Optional[float] = Query(None, description="This parameter is the latitude for the location")):
    
     # check_date(start_date, end_date)
 

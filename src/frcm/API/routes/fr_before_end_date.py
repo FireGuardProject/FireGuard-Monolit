@@ -27,13 +27,13 @@ def calculate_firerisk(end_date, days, longitude, latitude):
 
 
 @router.get("/fireriskBeforeEndDate", responses={
-    404: {"model": ErrorResponse, "description": "firerisk no found"},
+    404: {"model": ErrorResponse, "description": "firerisk not found"},
     400: {"model": ErrorResponse, "description": "invalid input"}
 })
-async def get_firerisk(end_date: Optional[str] = Query(None, description="This parameter is the date to search from"),
+async def get_firerisk(end_date: Optional[str] = Query(None, description="This parameter is the date to search to"),
                        days: Optional[int] = Query(None, description="This parameter is the time delta"),
-                       longitude: Optional[float] = Query(None, description="This parameter is the date to search from"),
-                       latitude: Optional[float] = Query(None, description="This parameter is the date to search from")):
+                       longitude: Optional[float] = Query(None, description="This parameter is the longitude for the location"),
+                       latitude: Optional[float] = Query(None, description="This parameter is the latitude for the location")):
 
     return calculate_firerisk(end_date, days, longitude, latitude)
 

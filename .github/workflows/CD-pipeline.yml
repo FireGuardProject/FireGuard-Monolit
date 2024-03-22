@@ -25,7 +25,10 @@ jobs:
       with:
         push: true
         tags: haakonm/fireguard-app:latest
-        
+        build-args: |
+           MET_CLIENT_ID=${{ secrets.MET_CLIENT_ID }}
+           MET_CLIENT_SECRET=${{ secrets.MET_CLIENT_SECRET }}
+      
 
     # Add deployment steps here
     #

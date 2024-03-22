@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Query, Path, HTTPException
 from pydantic import BaseModel, validator
-from typing import Optional  # Import Optional
+from typing import Optional
 from datetime import datetime, timedelta
 from frcm.logic.bus_logic import FireRiskAPI
 from frcm.datamodel.model import Location
@@ -27,14 +27,16 @@ def calculate_firerisk(start_date, days, longitude, latitude):
 
 
 @router.get("/fireriskAfterStartDate", responses={
-    404: {"model": ErrorResponse, "description": "firerisk no found"},
+    404: {"model": ErrorResponse, "description": "firerisk not found"},
     400: {"model": ErrorResponse, "description": "invalid input"}
 })
 async def get_firerisk(start_date: Optional[str] = Query(None, description="This parameter is the date to search from"),
                        days: Optional[int] = Query(None, description="This parameter is the time delta"),
-                       longitude: Optional[float] = Query(None, description="This parameter is the date to search from"),
-                       latitude: Optional[float] = Query(None, description="This parameter is the date to search from")):
+                       longitude: Optional[float] = Query(None, description="This parameter is the longitude for the location"),
+                       latitude: Optional[float] = Query(None, description="This parameter is the latitude for the location")):
 
+    
+    
     return calculate_firerisk(start_date, days, longitude, latitude)
 
 
