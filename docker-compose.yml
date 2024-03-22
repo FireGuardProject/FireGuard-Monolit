@@ -4,7 +4,4 @@ services:
     build: .
     ports:
       - "8000:8000"
-    environment: 
-      - MET_CLIENT_ID=${MET_CLIENT_ID}
-      - MET_CLIENT_SECRET=${MET_CLIENT_SECRET}
-      
+    
