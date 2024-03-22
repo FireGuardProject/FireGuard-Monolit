@@ -62,4 +62,4 @@ async def get_firerisk(start_date: Optional[str] = Query(None, description="This
 
 # Bergen kordinater: 60.39299 5.32415
 
-#URL EXAMPLE: http://127.0.0.1:8000/api/v1/calculate/firerisk/?start_date=2024-02-25&end_date=2024-03-25&longitude=60.39299&latitude=5.32415
+#URL EXAMPLE: http://127.0.0.1:8000/api/v1/calculate/firerisk/period?start_date=2024-03-20&end_date=2024-03-26&longitude=7.9956&latitude=58.14671

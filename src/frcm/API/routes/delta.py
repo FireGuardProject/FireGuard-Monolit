@@ -38,10 +38,10 @@ async def get_firerisk(start_date: Optional[str] = Query(None, description="This
                        longitude: Optional[float] = Query(None, description="This parameter is the date to search from"),
                        latitude: Optional[float] = Query(None, description="This parameter is the date to search from")):
 
-    return calculate_fr_period_delta(start_date, timedelta_days, longitude, latitude)
+    return calculate_fr_period_delta(start_date, timedelta_days, longitude=longitude, latitude=latitude)
 
 
 
 # Bergen kordinater: 60.39299 5.32415
 
-#URL EXAMPLE: http://127.0.0.1:8000/api/v1/calculate/firerisk/?start_date=2024-02-25&end_date=2024-03-25&longitude=60.39299&latitude=5.32415
+#URL EXAMPLE: http://127.0.0.1:8000/api/v1/calculate/firerisk/period/delta?start_date=2024-03-10&timedelta_days=5&longitude=7.9956&latitude=58.14671

@@ -21,7 +21,7 @@ class FireRiskAPI:
         time_now = datetime.now()
         start_time = time_now - obs_delta
         observations = self.client.fetch_observations(location, start=start_time, end=time_now)
-        forecast = self.client.fetch_forecast(location)
+        forecast = self.client.fetch_forecast(location, start_time, time_now)
         wd = WeatherData(created=time_now, observations=observations, forecast=forecast)
         prediction = self.compute(wd)
         return prediction 
@@ -29,7 +29,8 @@ class FireRiskAPI:
 
     def compute_period(self, location: Location, start: datetime, end: datetime) -> FireRiskPrediction:
         observations = self.client.fetch_observations(location, start=start, end=end)
-        forecast = self.client.fetch_forecast(location)
+        forecast = self.client.fetch_forecast(location, start, end)
+
         wd = WeatherData(created=end, observations=observations, forecast=forecast)
         prediction = self.compute(wd)
         return prediction 
@@ -37,9 +38,13 @@ class FireRiskAPI:
 
     def compute_period_delta(self, location: Location, start: datetime, delta: timedelta) -> FireRiskPrediction:
         end = start + delta
+
+        # Forcast does not work alone. Works togheter, and with observarions alone.
+        forecast = self.client.fetch_forecast(location, start, end)
+    
         observations = self.client.fetch_observations(location, start=start, end=end)
-        forecast = self.client.fetch_forecast(location)
-        wd = WeatherData(created=end, observations=observations, forecast=forecast)
+      
+        wd = WeatherData(created=end, observations=observations, forecast=forecast) #, forecast=forecast) #, #forecast=forecast)
         prediction = self.compute(wd)
         return prediction
 
