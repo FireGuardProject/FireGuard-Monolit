@@ -1,2 +1,4 @@
+Her er commandoer for å kjøre dockercontainer fra git. Takk meg senere hilsen Håkon:
+
 docker pull haakonm/fireguard-app:latest
 docker run -d --name fireguard-app-instance -p 8000:8000 haakonm/fireguard-app:latest
