@@ -12,5 +12,5 @@ class WeatherDataClient:
         pass
 
     @abc.abstractmethod
-    def fetch_forecast(self, location: Location) -> Forecast:
+    def fetch_forecast(self, location: Location, start: datetime, end: datetime) -> Forecast:
         pass
