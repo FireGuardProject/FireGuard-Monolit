@@ -24,5 +24,5 @@ ENV MET_CLIENT_ID=''
 ENV MET_CLIENT_SECRET=''
 
 # Command to run on container start, adjust the module path as needed
-#CMD ["/root/.local/bin/poetry", "run", "uvicorn", "src.frcm.API.main:app", "--host", "0.0.0.0", "--port", "8000"]
-CMD ["/root/.local/bin/poetry", "run", "pytest"]
+CMD ["/root/.local/bin/poetry", "run", "uvicorn", "src.frcm.API.main:app", "--host", "0.0.0.0", "--port", "8000"]
+#CMD ["/root/.local/bin/poetry", "run", "pytest"]

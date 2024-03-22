@@ -1,2 +1,2 @@
 docker pull haakonm/fireguard-app:latest
-docker run -d --name fireguard-app-instance -e MET_CLIENT_ID=b20b2c9a-d607-4450-ad12-faf4170049bb -e MET_CLIENT_SECRET=6c2ac37d-3dab-4f39-98e8-1a5dc8eecd75 -p 80:8000 haakonm/fireguard-app:latest
+docker run -d --name fireguard-app-instance -p 8000:8000 haakonm/fireguard-app:latest
