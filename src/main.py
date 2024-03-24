@@ -5,7 +5,7 @@ from frcm.data_harvesting.client_met import METClient
 from frcm.data_harvesting.extractor_met import METExtractor
 from frcm.datamodel.model import Location
 
-from database.firestore import *
+#from database.firestore import *
 
 # sample code illustrating how to use the Fire Risk Computation API (FRCAPI)
 if __name__ == "__main__":
@@ -32,5 +32,5 @@ if __name__ == "__main__":
 
     #print(predictions)
 
-    save_data(predictions.location, '11-10-2024', predictions.firerisks)
+    #save_data(predictions.location, '11-10-2024', predictions.firerisks)
     #delete_firerisk('11-10-2024')
