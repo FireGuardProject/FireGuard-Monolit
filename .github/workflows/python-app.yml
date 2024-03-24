@@ -2,7 +2,7 @@ name: CI Pipeline
 
 on:
   push:
-    branches: [ "7-setup-database" ]
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
