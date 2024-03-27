@@ -17,6 +17,13 @@ spec:
         image: haakonm/fireguard-app:latest  # You need to replace <your-image-path> with your Docker image path in a registry.
         ports:
         - containerPort: 8000
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
         env:
         - name: MET_CLIENT_ID
           valueFrom:
