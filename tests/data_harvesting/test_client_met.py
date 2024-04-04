@@ -17,6 +17,10 @@ class TestClient(unittest.TestCase):
 
         self.location = Location(latitude=60.383, longitude=5.3327)
 
+        self.start_time = datetime.datetime.now() - datetime.timedelta(days=10)
+        
+        self.end_time = datetime.datetime.now()- datetime.timedelta(days=1)
+
         self.station = 'SN50540'
 
     def test_fetch_forecast_raw(self):
@@ -29,7 +33,7 @@ class TestClient(unittest.TestCase):
 
     def test_fetch_forecast(self):
 
-        forecast = self.client.fetch_forecast(self.location)
+        forecast = self.client.fetch_forecast(self.location, self.start_time, self.end_time)
 
         print(forecast)
 

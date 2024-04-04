@@ -1,4 +1,5 @@
 import os
+import datetime
 import sys
 
 import unittest
@@ -23,6 +24,9 @@ class TestUtil(unittest.TestCase):
         self.location_obs = Location(latitude=60.383, longitude=5.3327)
         self.location_fct = Location(latitude=60.3915, longitude=5.3199)
 
+        self.start_time = datetime.datetime(year=2023, month=9, day=17)
+        self.end_time = datetime.datetime(year=2023, month=9, day=21)
+
         self.met_extractor = METExtractor()
 
         self.met_sample_forecast_str = json.dumps(sampledata_met.met_sample_forecast)
@@ -31,30 +35,31 @@ class TestUtil(unittest.TestCase):
     def test_extractor_obs(self):
 
         observations = self.met_extractor.extract_observations(self.frost_sample_observation_str,
-                                                               self.location_obs)
+                                                               self.location_obs, self.start_time, self.end_time)
         print(observations)
 
         self.assertEqual(len(observations.data), 24)
 
     def test_extractor_fct(self):
 
-        forecast = self.met_extractor.extract_forecast(self.met_sample_forecast_str)
+        forecast = self.met_extractor.extract_forecast(self.met_sample_forecast_str, self.start_time, self.end_time)
 
         print(forecast)
 
-        self.assertEqual(len(forecast.data), 85)
+        self.assertEqual(len(forecast.data), 61)
 
     def test_extractor_weatherdata(self):
 
         weatherdata = self.met_extractor.extract_weatherdata(frost_response=self.frost_sample_observation_str,
                                                              met_response=self.met_sample_forecast_str,
-                                                             location=self.location_obs)
+                                                             location=self.location_obs,
+                                                             start_time=self.start_time, end_time=self.end_time)
 
         self.assertEqual(self.location_obs, weatherdata.observations.location)
         self.assertEqual(self.location_fct, weatherdata.forecast.location)
 
         self.assertEqual(len(weatherdata.observations.data), 24)
-        self.assertEqual(len(weatherdata.forecast.data), 85)
+        self.assertEqual(len(weatherdata.forecast.data), 61)
 
 if __name__ == '__main__':
     unittest.main()

@@ -108,11 +108,11 @@ class METExtractor(Extractor):
 
         return forecast
 
-    def extract_weatherdata(self, frost_response: str, met_response: str, location: Location):
+    def extract_weatherdata(self, frost_response: str, met_response: str, location: Location, start_time: datetime.datetime, end_time: datetime.datetime) -> WeatherData:
 
-        observations = self.extract_observations(frost_response, location)
+        observations = self.extract_observations(frost_response, location, start_time, end_time)
 
-        forecast = self.extract_forecast(met_response)
+        forecast = self.extract_forecast(met_response, start_time, end_time)
 
 
         now = datetime.datetime.now()  # FIXME: date from each response should be used
