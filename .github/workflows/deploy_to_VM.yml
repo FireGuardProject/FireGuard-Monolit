@@ -24,6 +24,11 @@ jobs:
         ssh-keyscan ${{ secrets.GCP_VM_IP }} >> ~/.ssh/known_hosts
 
     - name: Deploy to Google Cloud VM
+      env:
+        FIREBASE_CREDENTIALS_BASE64: ${{ secrets.FIREBASE_CREDENTIALS_BASE64 }}
+        MET_CLIENT_ID: ${{ secrets.MET_CLIENT_ID }}
+        MET_CLIENT_SECRET: ${{ secrets.MET_CLIENT_SECRET }}
+        
       run: |
         ssh -i ~/.ssh/id_rsa ${{ secrets.GCP_USER }}@${{ secrets.GCP_VM_IP }} << 'EOF'
           docker pull haakonm/fireguard-app:latest
