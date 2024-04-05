@@ -49,7 +49,7 @@ Check the status of the deployed resources (pods, services, deployments, etc.) t
 ```sh
 kubectl get all
 ```
-## NB! run the previous step to check if it is running before going further.
+## NB! run the previous step until it is running before going further.
 ## Accessing the FireGuard Service:
 Finally, access the FireGuard service through Minikube by running:
 ```sh
