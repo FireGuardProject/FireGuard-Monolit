@@ -43,11 +43,13 @@ kubectl apply -f frcm-deployment.yaml
 ```sh
 kubectl apply -f port-service.yaml
 ```
+## NB! the previous step will most likely take some  time to download the docker file.
 ## Verifying the Application Deployment:
 Check the status of the deployed resources (pods, services, deployments, etc.) to ensure everything is up and running:
 ```sh
 kubectl get all
 ```
+## NB! run the previous step to check if it is running before going further.
 ## Accessing the FireGuard Service:
 Finally, access the FireGuard service through Minikube by running:
 ```sh
@@ -66,3 +68,9 @@ That because the API call is not correct. Use the IP and port provided and run t
 http://<ip>:<port>/api/v1/fireriskAfterStartDate?start_date=2024-03-10&days=3&longitude=5.32415&latitude=60.39299
 ```
 Congratulations you're the best! You have successfully deployed and accessed the FireGuard application in your local Kubernetes environment using Minikube. This setup is ideal for development and testing purposes. Remember, as you're using the Docker driver on Windows, keep the terminal open to maintain the service tunnel.
+# To exit run
+```sh
+{
+    minikube stop
+}
+```
