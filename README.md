@@ -7,13 +7,14 @@ Before you start, ensure you have the following prerequisites installed on your 
  * Minikube - For creating a local Kubernetes cluster. Install [Here](https://minikube.sigs.k8s.io/docs/start/)
  * Kubectl - For interacting with the Kubernetes cluster. Install [Here](https://kubernetes.io/docs/tasks/tools/)
 
-## Getting Started:
-Navigate to the directory containing the Kubernetes configuration files for the FireGuard application using the command line:
+## Getting Started
+First you need to clone the github repo to you own machine!
+Then you can navigate to the directory containing the Kubernetes configuration files for the FireGuard application using the command line:
 ```sh
-cd "...\FireGuard\kubernetes_files"
+cd "...\FireGuard\kubernetes"
 ```
 
-## Starting Minikube:
+## Starting Minikube
 Start your Minikube environment with the following command:
 
 ```sh
@@ -21,7 +22,7 @@ minikube start
 ```
 This command initializes a local Kubernetes cluster using Docker as the driver. It prepares Kubernetes along with necessary addons like the storage-provisioner and the default-storageclass for persistent storage needs.
 
-## Verifying Minikube and Setting Contexts:
+## Verifying Minikube and Setting Contexts
 Once Minikube has started, verify that your kubectl is configured to use the "minikube" cluster and the "default" namespace by default:
 ```sh
 kubectl config get-contexts
@@ -42,14 +43,14 @@ kubectl apply -f frcm-deployment.yaml
 ```sh
 kubectl apply -f port-service.yaml
 ```
-## NB! the previous step will most likely take some  time to download the docker file.
-## Verifying the Application Deployment:
+### NB! the previous step will most likely take some time to download the docker file.
+## Verifying the Application Deployment
 Check the status of the deployed resources (pods, services, deployments, etc.) to ensure everything is up and running:
 ```sh
 kubectl get all
 ```
-## NB! run the previous step until it is running before going further.
-## Accessing the FireGuard Service:
+### NB! run the previous step until it is running before going further.
+## Accessing the FireGuard Service
 Finally, access the FireGuard service through Minikube by running:
 ```sh
 minikube service fireguard-service
