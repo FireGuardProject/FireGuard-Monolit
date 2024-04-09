@@ -6,6 +6,7 @@ Before you start, ensure you have the following prerequisites installed on your 
  * DockerDeskop. Install [here](https://www.docker.com/products/docker-desktop/)
  * Minikube - For creating a local Kubernetes cluster. Install [Here](https://minikube.sigs.k8s.io/docs/start/)
  * Kubectl - For interacting with the Kubernetes cluster. Install [Here](https://kubernetes.io/docs/tasks/tools/)
+ * Postman - For interacting with the API endpoints. Install [Here](https://www.postman.com/downloads/)
 
 ## Getting Started
 First you need to clone the github repo to you own machine!
@@ -66,8 +67,7 @@ The url will give empty json shown under:
 That's because the url is not correct. Use the IP and port provided when you want to run one of the API calls below. We have 5 different APIs you can try out! But first you need a bearer token!
 
 ## Authentication API
-Our API uses token-based authentication. To obtain a token, you must use the /api/token endpoint. We would recommend you to use Postman for this, if you don't already have it installed, you can do it [here](https://www.postman.com/downloads/).
-In Postman send a 'POST' request to the endpoint:
+Our API uses token-based authentication. To obtain a token, you must use the /api/token endpoint. We would recommend you to use Postman for this. In Postman send a 'POST' request to the endpoint:
 ```sh
 http://<ip>:<port>/api/token
 ```
