@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Query, Path, HTTPException
+from fastapi import APIRouter, Query, Path, HTTPException, Depends
 from pydantic import BaseModel, validator
 from typing import Optional  # Import Optional
 from datetime import datetime, timedelta
@@ -6,6 +6,7 @@ from frcm.logic.bus_logic import FireRiskAPI
 from frcm.datamodel.model import Location
 from frcm.data_harvesting.client_met import METClient
 from frcm.data_harvesting.extractor_met import METExtractor
+from frcm.API.bearer_token.token import get_current_user
 
 router = APIRouter()
 met_extractor = METExtractor()
@@ -25,7 +26,7 @@ def calculate_firerisk(days, longitude, latitude):
     return FireRiskPrediction
 
 
-@router.get("/fireriskUpcomingDays", responses={
+@router.get("/v1/fireriskUpcomingDays", responses={
     404: {"model": ErrorResponse, "description": "firerisk not found"},
     400: {"model": ErrorResponse, "description": "invalid input"}
 })
@@ -33,6 +34,16 @@ async def get_firerisk(days: Optional[int] = Query(None, description="This param
                        longitude: Optional[float] = Query(None, description="This parameter is the longitude for the location"),
                        latitude: Optional[float] = Query(None, description="This parameter is the latitude for the location")):
 
+    return calculate_firerisk(days, longitude, latitude)
+
+
+@router.get("/v2/fireriskUpcomingDays")
+async def get_firerisk_with_authorization(
+        days: Optional[int] = Query(None, description="Time delta"),
+        longitude: Optional[float] = Query(None, description="Longitude"),
+        latitude: Optional[float] = Query(None, description="Latitude"),
+        current_user: str = Depends(get_current_user)):
+    
     return calculate_firerisk(days, longitude, latitude)
 
 
