@@ -3,7 +3,7 @@ This guide walks you through the process of setting up the FireGuard application
 
 ## Prerequisites for Running This Repository:
 Before you start, ensure you have the following prerequisites installed on your machine:
- * DockerDeskop. Install [here](https://www.docker.com/products/docker-desktop/)
+ * DockerDeskop. Install [Here](https://www.docker.com/products/docker-desktop/)
  * Minikube - For creating a local Kubernetes cluster. Install [Here](https://minikube.sigs.k8s.io/docs/start/)
  * Kubectl - For interacting with the Kubernetes cluster. Install [Here](https://kubernetes.io/docs/tasks/tools/)
  * Postman - For interacting with the API endpoints. Install [Here](https://www.postman.com/downloads/)
