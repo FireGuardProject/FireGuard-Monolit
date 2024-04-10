@@ -1,6 +1,6 @@
 from datetime import timedelta
-from frcm.API.bearer_token.token import ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token
-from frcm.API.bearer_token.user import authenticate_user
+from bearer_token.token import ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token
+from bearer_token.user import authenticate_user
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 

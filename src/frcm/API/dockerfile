@@ -18,11 +18,8 @@ RUN /root/.local/bin/poetry install
 #--no-dev
 
 # Expose the port the app runs on
-EXPOSE 2000
-
-ENV MET_CLIENT_ID='55806232-27fb-499f-b251-000042793c6f'
-ENV MET_CLIENT_SECRET='80fa55ba-20d6-475c-bcdc-94f5501609d'
+EXPOSE 8000
 
 # Command to run on container start, adjust the module path as needed
-CMD ["/root/.local/bin/poetry", "run", "uvicorn", "src.frcm.logic.bus_logic:app", "--host", "0.0.0.0", "--port", "2000"]
+CMD ["/root/.local/bin/poetry", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 #CMD ["/root/.local/bin/poetry", "run", "pytest"]

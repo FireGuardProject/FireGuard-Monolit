@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.routing import APIRoute
-from frcm.API.api import api_router
+from api import api_router
 
 # Create an instance of the FastAPI class
 app = FastAPI()
