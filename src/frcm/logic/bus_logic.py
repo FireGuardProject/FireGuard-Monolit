@@ -1,5 +1,7 @@
 from datetime import timedelta, datetime
 from fastapi import FastAPI
+import requests
+import json
 
 from frcm.datamodel.model import FireRiskPrediction, Location, WeatherData, Observations, Forecast
 from frcm.data_harvesting.client import WeatherDataClient
@@ -23,6 +25,8 @@ class FireRiskAPI:
     def compute_previous_days(self, location: Location, delta: timedelta) -> FireRiskPrediction: 
         time_now = datetime.now()
         start_time = time_now - delta
+
+        # request to: dataharvesting microservice
         observations = self.client.fetch_observations(location, start=start_time, end=time_now)
         forecast = self.client.fetch_forecast(location, start_time, time_now)
         wd = WeatherData(created=time_now, observations=observations, forecast=forecast)
