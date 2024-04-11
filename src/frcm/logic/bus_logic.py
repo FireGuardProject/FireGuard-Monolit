@@ -4,7 +4,8 @@ from fastapi import FastAPI
 from frcm.datamodel.model import FireRiskPrediction, Location, WeatherData, Observations, Forecast
 from frcm.data_harvesting.client import WeatherDataClient
 import frcm.FRC_service.compute
-
+from frcm.data_harvesting.client_met import METClient
+from frcm.data_harvesting.extractor_met import METExtractor
 
 
 class FireRiskAPI:
@@ -62,12 +63,17 @@ class FireRiskAPI:
         wd = WeatherData(created=time_now, observations=observations, forecast=forecast)
         prediction = self.compute(wd)
         return prediction
+    
 
-fire_risk_api = FireRiskAPI()
+met_extractor = METExtractor()
+# TODO: maybe embed extractor into client
+met_client = METClient(extractor=met_extractor)
+frc = FireRiskAPI(client=met_client)
+
 app = FastAPI()
 @app.get("/api/v1/fireriskPreviousDays")
 def fire_risk_previous_days(days: int, longitude: float, latitude: float):
     time_delta = timedelta(days=days)
     location1 = Location(longitude=float(longitude), latitude=float(latitude))
-    result = fire_risk_api.FireRiskAPI.compute_previous_days(location=location1, delta=time_delta)
+    result = frc.compute_previous_days(location=location1, delta=time_delta)
     return result
