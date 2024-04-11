@@ -1,4 +1,4 @@
-from frcm.FRC_service.parameters import delta_t
+from parameters import delta_t
 import numpy as np
 import datetime
 from pydantic import BaseModel

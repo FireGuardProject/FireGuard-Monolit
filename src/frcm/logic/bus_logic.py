@@ -5,7 +5,6 @@ import json
 
 from frcm.datamodel.model import FireRiskPrediction, Location, WeatherData, Observations, Forecast
 from frcm.data_harvesting.client import WeatherDataClient
-import frcm.FRC_service.compute
 from frcm.data_harvesting.client_met import METClient
 from frcm.data_harvesting.extractor_met import METExtractor
 

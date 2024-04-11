@@ -66,5 +66,5 @@ async def get_firerisk_with_authorization(
 
 # Bergen kordinater: 60.39299 5.32415
 
-#URL EXAMPLE: http://127.0.0.1:8000/api/v1/fireriskPreviousDays/?days=3&longitude=60.39299&latitude=5.32415
+#URL EXAMPLE: http://127.0.0.1:8000/api/v1/fireriskPreviousDays/?days=3&longitude=5.32415&latitude=60.39299
 

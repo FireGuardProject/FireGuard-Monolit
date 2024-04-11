@@ -1,5 +1,5 @@
 import math
-import frcm.FRC_service.parameters as mp
+import parameters as mp
 
 """Functions for computing saturation vapor pressure, and water concentrations"""
 """ pw_sat -- cw_sat -- cw_in -- initial fmc """

@@ -1,12 +1,18 @@
 import numpy as np
 import datetime
-import frcm.FRC_service.parameters as mp
-import frcm.FRC_service.utils as func
-import frcm.FRC_service.preprocess as pp
+import parameters as mp
+import utils as func
+import preprocess as pp
 from pydantic import BaseModel
 import fastapi
 
 #datamodel needed: weatherdata, FireRisk, FireRiskPrediction
+class Location(BaseModel):
+
+    latitude: float
+    longitude: float
+
+
 class FireRisk(BaseModel):
 
     timestamp: datetime.datetime
@@ -32,7 +38,48 @@ class FireRiskPrediction(BaseModel):
         format_str += '\n'.join(data_str)
 
         return format_str
+    
+class WeatherDataPoint(BaseModel):
 
+    temperature: float
+    humidity: float
+    wind_speed: float
+    timestamp: datetime.datetime
+
+    def __str__(self):
+
+        format_str = f'WeatherData[{self.timestamp}] {self.temperature, self.humidity, self.wind_speed}]'
+
+        return format_str
+
+
+class Observations(BaseModel):
+
+    source: str
+    location: Location
+    data: list[WeatherDataPoint]
+
+    def __str__(self):
+        format_str = f'Observations [Source: {self.source} @ Location: {self.location}]\n'
+
+        # Join all data points using '\n' as a separator
+        data_strings = '\n'.join(map(str, self.data))
+
+        return format_str + data_strings + '\n'
+
+
+class Forecast(BaseModel):
+
+    location: Location
+    data: list[WeatherDataPoint]
+
+    def __str__(self):
+        format_str = f'Forecast @ Location: {self.location}\n'
+
+        # Join all data points using '\n' as a separator
+        data_strings = '\n'.join(map(str, self.data))
+
+        return format_str + data_strings + '\n'
 
 class WeatherData(BaseModel):
 
