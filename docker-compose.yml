@@ -3,7 +3,7 @@ services:
   logic:
     build: .
     ports:
-      - "2000:2000"
+      - "2000:2000" #kan slettes senere
   api_service:
     build: ./src/frcm/API
     ports:
@@ -12,3 +12,11 @@ services:
     stdin_open: true
     depends_on:
       - logic
+  frc_service:
+    build: ./src/frcm/FRC_service
+    ports:
+      - "3000:3000" #kan slettes senere
+    tty: true
+    stdin_open: true
+    depends_on:
+      - api_service

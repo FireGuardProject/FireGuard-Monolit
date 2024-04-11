@@ -18,8 +18,8 @@ class FireRiskAPI:
         # TODO (NOTE): Short term forecast updates every 3rd hour with long term forecast every 12th hour at 12:00 and 06:00
         self.interpolate_distance = 720
 
-    def compute(self, wd: WeatherData) -> FireRiskPrediction:
-        return frcm.FRC_service.compute.compute(wd)
+   # def compute(self, wd: WeatherData) -> FireRiskPrediction:
+    #    return frcm.FRC_service.compute.compute(wd)
     
 
     def compute_previous_days(self, location: Location, delta: timedelta) -> FireRiskPrediction: 
@@ -30,8 +30,20 @@ class FireRiskAPI:
         observations = self.client.fetch_observations(location, start=start_time, end=time_now)
         forecast = self.client.fetch_forecast(location, start_time, time_now)
         wd = WeatherData(created=time_now, observations=observations, forecast=forecast)
-        prediction = self.compute(wd)
-        return prediction 
+        serialized_object = json.dumps(wd.__dict__)
+        # request to: FRC_service 
+# Request to: FRC_service 
+        try:
+            response = requests.post('http://frc_service:3000/compute', json=json.loads(serialized_object))  # Using json parameter
+            if response.status_code == 200:
+                return response.json()  # This should correctly handle JSON responses
+            else:
+                return f"Received non-200 response code: {response.status_code}"
+        except Exception as e:
+            return f"Error occurred: {e}"
+
+       # prediction = self.compute(wd)
+        #return prediction 
 
     def compute_upcoming_days(self, location: Location, delta: timedelta) -> FireRiskPrediction: 
         time_now = datetime.now()

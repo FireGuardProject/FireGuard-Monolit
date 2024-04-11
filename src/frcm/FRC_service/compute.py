@@ -1,13 +1,53 @@
 import numpy as np
 import datetime
-
-import frcm.datamodel.model as dm
 import frcm.FRC_service.parameters as mp
 import frcm.FRC_service.utils as func
 import frcm.FRC_service.preprocess as pp
+from pydantic import BaseModel
+import fastapi
+
+#datamodel needed: weatherdata, FireRisk, FireRiskPrediction
+class FireRisk(BaseModel):
+
+    timestamp: datetime.datetime
+    ttf: float
+
+    def __str__(self):
+        format_str = f'FireRisks[{self.timestamp} {self.ttf}]'
+
+        return format_str
+
+class FireRiskPrediction(BaseModel):
+
+    location: Location
+    firerisks: list[FireRisk]
+
+    def __str__(self):
+        format_str = f'FireRiskPrediction[{self.location}]\n'
+
+        # Generate list of formatted data points
+        data_str = [str(data_point) for data_point in self.firerisks]
+
+        # Join the list of formatted data points
+        format_str += '\n'.join(data_str)
+
+        return format_str
 
 
-def compute(wd: dm.WeatherData) -> dm.FireRiskPrediction:
+class WeatherData(BaseModel):
+
+    created: datetime.datetime
+
+    observations: Observations
+    forecast: Forecast
+
+    def to_json(self):
+        return self.model_dump_json()
+
+app = fastapi.FastAPI()
+
+@app.post("/compute")
+def compute(wd: WeatherData) -> FireRiskPrediction:
 
     # Get interpolated values #TODO (NOTE) The max_time_delta represents the largest gap in missing data (seconds). It can be used to provide suited warning/error message.
     start_time, time_interpolated_sec, temp_interpolated, humidity_interpolated, wind_interpolated, max_time_delta = pp.preprocess(wd)
@@ -27,10 +67,10 @@ def compute(wd: dm.WeatherData) -> dm.FireRiskPrediction:
     firerisks = []
     for i in range(len(rh_in_hour)):
         timestamps = start_time + datetime.timedelta(seconds=time_in_hour[i])
-        firerisk_i = dm.FireRisk(timestamp=timestamps, ttf=ttf_in_hour[i])
+        firerisk_i = FireRisk(timestamp=timestamps, ttf=ttf_in_hour[i])
         firerisks.append(firerisk_i)
 
-    FireRiskResponse = dm.FireRiskPrediction(location=comp_loc, firerisks=firerisks)
+    FireRiskResponse = FireRiskPrediction(location=comp_loc, firerisks=firerisks)
 
     return FireRiskResponse
 
