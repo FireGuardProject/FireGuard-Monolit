@@ -44,9 +44,12 @@ class FireRiskAPI:
 
     def compute_specific_period(self, location: Location, start: datetime, end: datetime) -> FireRiskPrediction:
         time_now = datetime.now()
+        #databaselogic 
+      
         observations = self.client.fetch_observations(location, start=start, end=end)
         forecast = self.client.fetch_forecast(location, start, end)
         wd = WeatherData(created=time_now, observations=observations, forecast=forecast)
+        
         prediction = self.compute(wd)
         return prediction 
 
@@ -81,3 +84,6 @@ def fire_risk_previous_days(days: int, longitude: float, latitude: float):
     location1 = Location(longitude=float(longitude), latitude=float(latitude))
     result = frc.compute_previous_days(location=location1, delta=time_delta)
     return result
+
+
+

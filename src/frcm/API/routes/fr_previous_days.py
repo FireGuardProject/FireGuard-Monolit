@@ -5,30 +5,31 @@ from typing import Optional  # Import Optional
 from datetime import datetime, timedelta
 import requests
 
+from bearer_token.token import get_current_user
+
+router = APIRouter()
+
+
 #local imports
 #from frcm.logic.bus_logic import FireRiskAPI
 #from frcm.datamodel.model import Location
 #from frcm.data_harvesting.client_met import METClient
 #from frcm.data_harvesting.extractor_met import METExtractor
-from bearer_token.token import get_current_user
-
-router = APIRouter()
 
 #need to be moved:
 #met_extractor = METExtractor()
 #met_client = METClient(extractor=met_extractor)
 #frc = FireRiskAPI(client=met_client)
 
-# Define a Pydantic model for the response
-class ErrorResponse(BaseModel):
-    detail: str
-
-
 #def calculate_firerisk(days, longitude, latitude):
 #    delta = timedelta(days=days)
 #    location = Location(longitude=longitude, latitude=latitude)
 #    FireRiskPrediction = frc.compute_previous_days(location, delta)
 #    return FireRiskPrediction
+
+# Define a Pydantic model for the response
+class ErrorResponse(BaseModel):
+    detail: str
 
 
 
