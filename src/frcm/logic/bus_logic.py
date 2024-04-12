@@ -85,6 +85,21 @@ def fire_risk_previous_days(days: int, longitude: float, latitude: float):
     result = frc.compute_previous_days(location=location1, delta=time_delta)
     return result
 
+@app.get("/api/v1/fireriskSpecificPeriod")
+def fire_risk_specific_period(start_date: str, end_date: str, longitude: float, latitude: float):
+    start = datetime.fromisoformat(start_date)
+    end = datetime.fromisoformat(end_date)
+    location1 = Location(longitude=float(longitude), latitude=float(latitude))
+    result = frc.compute_specific_period(location=location1, start=start, end=end)
+    return result
+
+
+@app.get("/api/v1/fireriskUpcomingDays")
+def fire_risk_upcoming_days(days: int, longitude: float, latitude: float):
+    delta = timedelta(days=days)
+    location1 = Location(longitude=float(longitude), latitude=float(latitude))
+    result = frc.compute_upcoming_days(location=location1, delta=delta)
+    return result
 
 @app.get("/api/v1/fireriskBeforeEndDate")
 def fire_risk_compute_before_end_date(end_date, days, longitude, latitude):
