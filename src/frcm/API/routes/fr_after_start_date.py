@@ -2,29 +2,43 @@ from fastapi import APIRouter, Query, Path, HTTPException, Depends
 from pydantic import BaseModel, validator
 from typing import Optional
 from datetime import datetime, timedelta
-from frcm.logic.bus_logic import FireRiskAPI
-from frcm.datamodel.model import Location
-from frcm.data_harvesting.client_met import METClient
-from frcm.data_harvesting.extractor_met import METExtractor
-from frcm.API.bearer_token.token import get_current_user
+import requests
+#from frcm.logic.bus_logic import FireRiskAPI
+#from frcm.datamodel.model import Location
+#from frcm.data_harvesting.client_met import METClient
+#from frcm.data_harvesting.extractor_met import METExtractor
+from bearer_token.token import get_current_user
 
 router = APIRouter()
-met_extractor = METExtractor()
+#met_extractor = METExtractor()
 # TODO: maybe embed extractor into client
-met_client = METClient(extractor=met_extractor)
-frc = FireRiskAPI(client=met_client)
+#met_client = METClient(extractor=met_extractor)
+#frc = FireRiskAPI(client=met_client)
 
 # Define a Pydantic model for the response
 class ErrorResponse(BaseModel):
     detail: str
 
 
+#def calculate_firerisk(start_date, days, longitude, latitude):
+#    delta = timedelta(days=days)
+#    location = Location(longitude=longitude, latitude=latitude)
+#    start = datetime.fromisoformat(start_date)
+#    FireRiskPrediction = frc.compute_after_start_date(location, start, delta)
+#    return FireRiskPrediction
+
+
 def calculate_firerisk(start_date, days, longitude, latitude):
-    delta = timedelta(days=days)
-    location = Location(longitude=longitude, latitude=latitude)
-    start = datetime.fromisoformat(start_date)
-    FireRiskPrediction = frc.compute_after_start_date(location, start, delta)
-    return FireRiskPrediction
+        try:
+            response = requests.get('http://logic:2000/api/v1/fireriskAfterStartDate/', params={'start_date':start_date ,'days': days ,'longitude': longitude,'latitude': latitude})
+            if response.status_code == 200:
+                return response.json() 
+            else:
+                return "Received non-200 response code."
+        except Exception as e:
+            return f"Error occurred: {e}"
+
+
 
 
 @router.get("/v1/fireriskAfterStartDate", responses={
@@ -52,4 +66,4 @@ async def get_firerisk_with_authorization(
 
 # Bergen kordinater: 60.39299 5.32415
 
-#URL EXAMPLE: http://127.0.0.1:8000/api/v1/fireriskAfterStartDate/?start_date=2024-03-10&days=3&longitude=60.39299&latitude=5.32415
+#URL EXAMPLE: http://127.0.0.1:8000/api/v1/fireriskAfterStartDate/?start_date=2024-03-10&days=3&longitude=5.32415&latitude=60.39299
