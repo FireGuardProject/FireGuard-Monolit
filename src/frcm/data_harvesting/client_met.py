@@ -10,7 +10,9 @@ from frcm.data_harvesting.extractor import Extractor
 from frcm.datamodel.model import Location, Observations, Forecast
 
 
+
 class METClient(WeatherDataClient):
+
 
     def __init__(self, extractor: Extractor):
         self.forecast_endpoint = 'https://api.met.no/weatherapi/locationforecast/2.0/compact.json'
