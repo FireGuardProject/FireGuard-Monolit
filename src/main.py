@@ -15,12 +15,13 @@ if __name__ == "__main__":
 
     frc = FireRiskAPI(client=met_client)
 
-    location = Location(latitude=60.383, longitude=5.3327)  # Bergen
+    locationA = Location(latitude=60.383, longitude=5.3327)  # Bergen
+    locationB = Location(latitude=59.4136, longitude=5.2680)  # Haugesund
 
     delta = datetime.timedelta(days=3)
 
-    # predictions = frc.compute_previous_days(location, obs_delta)
+    predictions = frc.compute_previous_days(locationB, delta)
 
-    predictions = frc.compute_specific_period(location, datetime.datetime.now() - delta, datetime.datetime.now() + delta)
+    # predictions = frc.compute_specific_period(location, datetime.datetime.now() - delta, datetime.datetime.now() + delta)
 
     print(predictions)
